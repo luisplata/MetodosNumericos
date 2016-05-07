@@ -141,7 +141,6 @@
                  */
 
                 Materialize.updateTextFields();
-
             });
             $(document).on("click", "#Ejecutar", function () {
 
@@ -154,6 +153,36 @@
                 tablaxy(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()));
                 biseccion(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()), $("#funcion").val(), 0);
             });
+            function falsaPosicion(a, b, funcion, iteracion) {
+                //Ejecutamos el resultado de f(a), f(b)
+                var operacion = math.compile(funcion);
+                var positivo = {x: a};
+                var negativo = {x: b};
+                var fa = operacion.eval(positivo);
+                var fb = operacion.eval(negativo);
+                var c = a - ((fa * (b - a)) / (fb - fa));
+                var raiz = {x: c};
+                var fr = operacion.eval(raiz);
+                //buscamos el f(c)
+                //comparamos la funcion de f(c)
+                //Aqui Se Imprime en la tabla
+
+                console.log(a + "|" + b + "|" + c + "|" + parseFloat(fr + "") + "|");
+                console.log("Iteracion # " + iteracion);
+                //Se Imprime en la tabla
+                if (fr > 0) {
+                    //es positivo
+                    a = c;
+                } else {
+                    b = c;
+                }
+                if (fr <= parseFloat(1e-6) && fr >= -parseFloat(1e-6)) {
+                    console.log("El Numero es: " + c + " Con la funcion da: " + parseFloat(fr + ""));
+                    return;
+                }
+                iteracion++;
+                biseccion(a, b, funcion, iteracion);
+            }
             function biseccion(a, b, funcion, iteracion) {
                 //Ejecutamos el resultado de f(a), f(b)
                 var operacion = math.compile(funcion);
@@ -214,7 +243,6 @@
                     var xx = {x: i};
                     x1 = i;
                     y1 = funcionLocal.eval(xx);
-
                     var tr = $("<tr/>");
                     var tdx = $('<td/>', {
                         "html": x1.toFixed(6)
