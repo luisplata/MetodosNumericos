@@ -2,6 +2,7 @@
 <html class="no-js" lang="">
     <head>
         <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="http://lab.ejci.net/favico.js/html5logo.png" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>JSF+MetodosNumericos</title>
         <!--Import Google Icon Font-->
@@ -10,8 +11,12 @@
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"/>
-        <link rel="stylesheet" href="https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.js"/>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"/>        
+        <style>
+            .configuracion{
+                color: white !important;
+            }
+        </style>
     </head>
     <body>
         <!-- Navbar goes here -->
@@ -27,30 +32,30 @@
             <div class="col s2">
                 <!-- Grey navigation panel -->
                 <p>
-                    <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                    <input class="with-gap group1" name="group1" value="b" type="radio" id="test1" checked="checked"/>
                     <label for="test1">
                         Bisección
                     </label>
                 </p>
                 <p>
-                    <input class="with-gap" name="group1" type="radio" id="test2" />
+                    <input class="with-gap group1" name="group1" value="fp" type="radio" id="test2" />
                     <label for="test2">
                         Falsa posición
                     </label>
                 </p>
                 <p>
-                    <input class="with-gap" name="group1" type="radio" id="test3"  />
+                    <input class="with-gap group1" name="group1" value="pf" type="radio" id="test3"  />
                     <label for="test3">
                         Punto Fijo
                     </label>
                 </p>
                 <p>
                 <div class="input-field col s6">
-                    <input data-error="Debe Ser entre -100 y 0" data-success="listo!" placeholder="Placeholder" id="numeroInicial" type="number" value="-2"  min="-100" max="0" class="validate">
+                    <input data-error="Debe Ser entre -100 y 0" data-success="listo!" placeholder="Placeholder" id="numeroInicial" type="number" value="-2" class="validate"/>
                     <label for="first_name">Inicio</label>
                 </div>
                 <div class="input-field col s6">
-                    <input data-error="Debe ser entre 0 y 100" data-success="listo!" placeholder="Placeholder" id="numeroFinal" type="number" value="2" min="0" max="100" class="validate">
+                    <input data-error="Debe ser entre 0 y 100" data-success="listo!" placeholder="Placeholder" id="numeroFinal" type="number" value="2" class="validate"/>
                     <label for="first_name">Fin</label>
                 </div>
                 <table class="centered striped table">
@@ -75,15 +80,17 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="input-field col s5">
-                            <input placeholder="3x^3 + 2x^2 + x -1" id="funcion" type="text" class="validate"></input>
+                            <input placeholder="3x^3 + 2x^2 + x -1" id="funcion" type="text" class="validate"/>
                             <label for="first_name">Ingresa la Ecuación</label>
                         </div>
-                        <div class="col s1">
-                            <a id="Ejecutar" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
+                        <div class="col s3">
+                            <a data-position="bottom" data-delay="50" data-tooltip="Graficar" id="graficar" class="tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
+                            <a data-position="bottom" data-delay="50" data-tooltip="Ejecutar" id="Ejecutar" class="tooltipped btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">play_circle_outline</i></a>
+                            <a data-position="bottom" data-delay="50" data-tooltip="Recargar" id="VolverAEjecutar" class="tooltipped btn-floating btn-large waves-effect waves-light purple"><i class="material-icons">replay</i></a>
                         </div>
                     </div>
                     <div class="col s12">
-                        <div id="myPlot" style="width:100%;height:400px;background-image:'http://i.imgur.com/D7WvclY.gif'"></div>
+                        <div id="myPlot" style="width:100%;height:400px;background-repeat: no-repeat; background-position: center center;"></div>
                     </div>
                     <div class="col s12">
                         <table class="table responsive-table">
@@ -119,17 +126,65 @@
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
             </div>
         </div>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Integrantes</h5>
+                        <p class="grey-text text-lighten-4"><a style="color: white" href="http://github.com/luisplata" target="_blank">Luis Enrique Plata Osorio</a></p>
+                        <p class="grey-text text-lighten-4"><a style="color: white">Yordi Canoles</a></p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Configuración</h5>
+                        <ul style="color: white">
+                            <li>                                
+                                <div class="input-field">
+                                    <input placeholder="" value="5" id="precisionDecimal" type="number" min="0" class="validate">
+                                    <label for="precisionDecimal" class=" configuracion"  data-error="no" data-success="Ok">Precición Decimal</label>
+                                </div>
+                            </li>
+                            <li>                                
+                                <div class="input-field">
+                                    <input placeholder="" value="5" id="errorAbsoluto" type="number" min="0" class="validate">
+                                    <label for="errorAbsoluto" class=" configuracion"  data-error="no" data-success="Ok">Error Absoluto</label>
+                                </div>
+                            </li>
+                            <li>                                
+                                <div class="input-field">
+                                    <input placeholder="" value="1000" id="velocidadDeIteracion" type="number" min="0" class="validate">
+                                    <label for="velocidadDeIteracion" class=" configuracion"  data-error="no" data-success="Ok">Velocidad de Iteración</label>
+                                </div>
+                            </li>
+                            <li>                                
+                                <div class="input-field">
+                                    <input placeholder="" value="50" id="maximasIteraciones" type="number" min="0" class="validate">
+                                    <label for="maximasIteraciones" class=" configuracion" data-error="no" data-success="Ok">Iteraciones maximas</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2014 Copyright Nabu.com.co
+                    <a class="grey-text text-lighten-4 right" href="http://nabu.com.co" target="_blank">NABU</a>
+                </div>
+            </div>
+        </footer>
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <!--Graficador-->
         <script src="https://cdn.rawgit.com/luisplata/fooplot/master/fooplot.js"></script>
-        <script src="https://cdn.rawgit.com/josdejong/mathjs/master/dist/math.min.js"></script>
-
-        <script src="https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.js"></script>
+        <script src="https://cdn.rawgit.com/josdejong/mathjs/master/dist/math.min.js"></script>        
         <script>
             var myPlot;
+            var precicionDecimal;
+            var errorAbsoluto;
+            var velocidadDeIteracion;
+            var maximasIteraciones;
             $(document).ready(function () {
 
                 //gif de cargado: http://i.imgur.com/D7WvclY.gif
@@ -142,18 +197,44 @@
 
                 Materialize.updateTextFields();
             });
+            $(document).on("click", "#VolverAEjecutar", function () {
+                location.reload();
+            });
             $(document).on("click", "#Ejecutar", function () {
+                precicionDecimal = $("#precisionDecimal").val();
+                errorAbsoluto = $("#errorAbsoluto").val();
+                velocidadDeIteracion = $("#velocidadDeIteracion").val();
+                maximasIteraciones = $("#maximasIteraciones").val();
+                var selected = $("input[type='radio'][name='group1']:checked");
+                if (selected.length > 0) {
+                    selectedVal = selected.val();
+                }
+                switch (selectedVal) {
+                    case "b":
+                        biseccion(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()), $("#funcion").val(), 0);
+                        break;
+                    case "fp":
+                        falsaPosicion(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()), $("#funcion").val(), 0);
+                        break;
+                    case "pf":
+                        Materialize.toast('Función todavia en contrucción', 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+                        break;
+                }
+
+            });
+            $(document).on("click", "#graficar", function () {
 
                 myPlot = new Fooplot(document.getElementById('myPlot'));
-                var funcion = $("#funcion").val();
+                var funcion = $("#funcion").val();//agregar mas funciones separadas por ;
                 //myPlot.addPlot('sin(x)+0.5/x', FOOPLOT_TYPE_FUNCTION);
                 myPlot.addPlot(funcion, FOOPLOT_TYPE_FUNCTION);
                 //myPlot.addPlot('theta', FOOPLOT_TYPE_POLAR, {'color': '#ff0000'});
                 myPlot.reDraw();
-                tablaxy(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()));
-                biseccion(parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()), $("#funcion").val(), 0);
+                tablaxy($("#funcion").val(), parseFloat($("#numeroInicial").val()), parseFloat($("#numeroFinal").val()));
             });
+
             function falsaPosicion(a, b, funcion, iteracion) {
+                console.log(a + " " + b + " " + funcion + " " + iteracion);
                 //Ejecutamos el resultado de f(a), f(b)
                 var operacion = math.compile(funcion);
                 var positivo = {x: a};
@@ -166,8 +247,24 @@
                 //buscamos el f(c)
                 //comparamos la funcion de f(c)
                 //Aqui Se Imprime en la tabla
+                var tr = $("<tr/>");
+                var iteracionNo = $("<td/>", {"html": iteracion});
+                tr.append(iteracionNo);
+                var tdx1 = $("<td/>", {"html": formatoNumero(Math.round10(a, -precicionDecimal))});
+                tr.append(tdx1);
+                var tdb1 = $("<td/>", {"html": formatoNumero(Math.round10(b, -precicionDecimal))});
+                tr.append(tdb1);
+                var tdc1 = $("<td/>", {"html": formatoNumero(Math.round10(c, -precicionDecimal))});
+                tr.append(tdc1);
+                var tdfx1 = $("<td/>", {"html": formatoNumero(Math.round10(fa, -precicionDecimal))});
+                tr.append(tdfx1);
+                var tdfb1 = $("<td/>", {"html": formatoNumero(Math.round10(fb, -precicionDecimal))});
+                tr.append(tdfb1);
+                var tdfc1 = $("<td/>", {"html": formatoNumero(Math.round10(fr, -precicionDecimal))});
+                tr.append(tdfc1);
+                $("#Pila").append(tr);
 
-                console.log(a + "|" + b + "|" + c + "|" + parseFloat(fr + "") + "|");
+                console.log(a + "|" + b + "|" + c + "|" + parseFloat(fr) + "|");
                 console.log("Iteracion # " + iteracion);
                 //Se Imprime en la tabla
                 if (fr > 0) {
@@ -176,12 +273,19 @@
                 } else {
                     b = c;
                 }
-                if (fr <= parseFloat(1e-6) && fr >= -parseFloat(1e-6)) {
+                var ccs = "1e-" + precicionDecimal;
+                if (fr <= parseFloat(ccs) && fr >= -parseFloat(ccs)) {
                     console.log("El Numero es: " + c + " Con la funcion da: " + parseFloat(fr + ""));
                     return;
                 }
                 iteracion++;
-                biseccion(a, b, funcion, iteracion);
+                if (iteracion >= maximasIteraciones) {
+                    return;
+                }
+                setTimeout(function () {
+                    falsaPosicion(a, b, funcion, iteracion);
+                }, velocidadDeIteracion);
+
             }
             function biseccion(a, b, funcion, iteracion) {
                 //Ejecutamos el resultado de f(a), f(b)
@@ -199,17 +303,17 @@
                 var tr = $("<tr/>");
                 var iteracionNo = $("<td/>", {"html": iteracion});
                 tr.append(iteracionNo);
-                var tdx1 = $("<td/>", {"html": a.toFixed(8)});
+                var tdx1 = $("<td/>", {"html": formatoNumero(Math.round10(a, -precicionDecimal))});
                 tr.append(tdx1);
-                var tdb1 = $("<td/>", {"html": b.toFixed(8)});
+                var tdb1 = $("<td/>", {"html": formatoNumero(Math.round10(b, -precicionDecimal))});
                 tr.append(tdb1);
-                var tdc1 = $("<td/>", {"html": c.toFixed(8)});
+                var tdc1 = $("<td/>", {"html": formatoNumero(Math.round10(c, -precicionDecimal))});
                 tr.append(tdc1);
-                var tdfx1 = $("<td/>", {"html": fa.toFixed(8)});
+                var tdfx1 = $("<td/>", {"html": formatoNumero(Math.round10(fa, -precicionDecimal))});
                 tr.append(tdfx1);
-                var tdfb1 = $("<td/>", {"html": fb.toFixed(8)});
+                var tdfb1 = $("<td/>", {"html": formatoNumero(Math.round10(fb, -precicionDecimal))});
                 tr.append(tdfb1);
-                var tdfc1 = $("<td/>", {"html": fr.toFixed(8)});
+                var tdfc1 = $("<td/>", {"html": formatoNumero(Math.round10(fr, -precicionDecimal))});
                 tr.append(tdfc1);
                 $("#Pila").append(tr);
                 console.log("Positivo    |Negativo    |Raiz    |fr      |");
@@ -222,20 +326,35 @@
                 } else {
                     b = c;
                 }
-                if (fr <= parseFloat(1e-5) && fr >= -parseFloat(1e-5)) {
+                var ccs = "1e-" + precicionDecimal;
+                if (fr <= parseFloat(ccs) && fr >= -parseFloat(ccs)) {
                     console.log("El Numero es: " + c + " Con la funcion da: " + parseFloat(fr + ""));
                     //Colocar el resultado en el modal que anda por ahy con id resultado
+                    Materialize.toast("El Numero es: " + c + " Con la funcion da: " + parseFloat(fr + ""), 4000);// 4000 is the duration of the toast
+                    alert("El Numero es: " + c + " Con la funcion da: " + parseFloat(fr + ""));
+                    return;
+                }
+                if (iteracion >= maximasIteraciones) {
                     return;
                 }
                 iteracion++;
                 setTimeout(function () {
-                    biseccion(a, b, funcion, iteracion)
-                }, 2000);
+                    biseccion(a, b, funcion, iteracion);
+                }, velocidadDeIteracion);
             }
 
             function tablaxy(funcion, limiteIzq, limiteDer) {
                 var x1;
                 var y1;
+                if (isNaN(x1)) {
+                    x1 = 0;
+                }
+                if (isNaN(y1)) {
+                    y1 = 0;
+                }
+                if (funcion === "") {
+                    funcion = 0;
+                }
                 var iteraciones = Math.abs(limiteIzq) + Math.abs(limiteDer);
                 iteraciones /= 10;
                 var funcionLocal = math.compile(funcion);
@@ -245,18 +364,92 @@
                     y1 = funcionLocal.eval(xx);
                     var tr = $("<tr/>");
                     var tdx = $('<td/>', {
-                        "html": x1.toFixed(6)
+                        "html": formatoNumero(Math.round10(x1, -5))
                     });
                     var tdy = $('<td/>', {
-                        "html": y1.toFixed(6)
+                        "html": formatoNumero(Math.round10(y1, -5))
                     });
                     tr.append(tdx);
                     tr.append(tdy);
                     console.log(tdx);
                     $("#xy").append(tr);
-                    console.log("X= " + x1.toFixed(8));
-                    console.log("Y= " + y1.toFixed(8));
+                    console.log("X= " + Math.round10(x1, -5));
+                    console.log("Y= " + Math.round10(y1, -5));
+                    console.log("i= " + Math.round10(xx.x, -5));
                 }
+            }
+            Math.round10 = function (value, exp) {
+                return decimalAdjust('round', value, exp);
+            };
+            function decimalAdjust(type, value, exp) {
+                // Si el exp no está definido o es cero...
+                if (typeof exp === 'undefined' || +exp === 0) {
+                    return Math[type](value);
+                }
+                value = +value;
+                exp = +exp;
+                // Si el valor no es un número o el exp no es un entero...
+                if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+                    return NaN;
+                }
+                // Shift
+                value = value.toString().split('e');
+                value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+                // Shift back
+                value = value.toString().split('e');
+                return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+            }
+            /**
+             * Da formato a un número para su visualización
+             *
+             * @param {(number|string)} numero Número que se mostrará
+             * @param {number} [decimales=null] Nº de decimales (por defecto, auto); admite valores negativos
+             * @param {string} [separadorDecimal=","] Separador decimal
+             * @param {string} [separadorMiles=""] Separador de miles
+             * @returns {string} Número formateado o cadena vacía si no es un número
+             *
+             * @version 2014-07-18
+             */
+            function formatoNumero(numero) {
+                var partes, array;
+                var decimales = ".", separadorDecimal = ",", separadorMiles = ".";
+
+                if (!isFinite(numero) || isNaN(numero = parseFloat(numero))) {
+                    return "";
+                }
+                if (typeof separadorDecimal === "undefined") {
+                    separadorDecimal = ",";
+                }
+                if (typeof separadorMiles === "undefined") {
+                    separadorMiles = "";
+                }
+
+                // Redondeamos
+                if (!isNaN(parseInt(decimales))) {
+                    if (decimales >= 0) {
+                        numero = numero.toFixed(decimales);
+                    } else {
+                        numero = (
+                                Math.round(numero / Math.pow(10, Math.abs(decimales))) * Math.pow(10, Math.abs(decimales))
+                                ).toFixed();
+                    }
+                } else {
+                    numero = numero.toString();
+                }
+
+                // Damos formato
+                partes = numero.split(".", 2);
+                array = partes[0].split("");
+                for (var i = array.length - 3; i > 0 && array[i - 1] !== "-"; i -= 3) {
+                    array.splice(i, 0, separadorMiles);
+                }
+                numero = array.join("");
+
+                if (partes.length > 1) {
+                    numero += separadorDecimal + partes[1];
+                }
+
+                return numero;
             }
         </script>
     </body>
